@@ -14,17 +14,21 @@ use Slim\Views\TwigExtension;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$user = new AuthWithSlimPHP3\Models\User;
+var_dump($user);
+die();
+
 $app = new App([
-  'settings' => [
-    'displayErrorDetails' => TRUE,
+    'settings' => [
+      'displayErrorDetails' => true,
+    ]
   ]
-]
 );
 
 $container = $app->getContainer();
 
 $container['view'] = function ($container) {
-    $view = new Twig(__DIR__ . '/../resources/views',  [
+    $view = new Twig(__DIR__ . '/../resources/views', [
       'cache' => false,
     ]);
 
