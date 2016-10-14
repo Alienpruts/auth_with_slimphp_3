@@ -6,6 +6,9 @@
  * Time: 8:49 PM
  */
 
-$app->get('/', function () {
-    return 'Home';
+use Slim\Http\Request;
+use Slim\Http\Response;
+
+$app->get('/home', function (Request $req, Response $res) {
+    return $this->view->render($res, 'home.twig');
 });
