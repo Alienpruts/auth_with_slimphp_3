@@ -37,8 +37,8 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$container['HomeController'] = function () {
-    return new HomeController;
+$container['HomeController'] = function ($container) {
+    return new HomeController($container);
 };
 
 require_once __DIR__ . '/../app/routes.php';

@@ -11,10 +11,13 @@ namespace AuthWithSlimPHP3\Controllers;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class HomeController
+class HomeController extends Controller
 {
+
     public function index(Request $req, Response $res)
     {
-        return 'Home Controller';
+        // This is not good practice, accessing fields via magic method.
+        // But for now, it will do.
+        return $this->view->render($res, 'home.twig');
     }
 }
