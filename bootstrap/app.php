@@ -8,15 +8,12 @@
 
 session_start();
 
+use AuthWithSlimPHP3\Controllers\HomeController;
 use Slim\App;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 
 require_once __DIR__ . '/../vendor/autoload.php';
-
-$user = new AuthWithSlimPHP3\Models\User;
-var_dump($user);
-die();
 
 $app = new App([
     'settings' => [
@@ -38,6 +35,10 @@ $container['view'] = function ($container) {
     ));
 
     return $view;
+};
+
+$container['HomeController'] = function () {
+    return new HomeController;
 };
 
 require_once __DIR__ . '/../app/routes.php';
