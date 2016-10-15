@@ -45,7 +45,7 @@ $container['db'] = function ($container) use ($capsule) {
 };
 
 $container['view'] = function ($container) {
-    $view = new Twig(__DIR__ . ' /../resources / views', [
+    $view = new Twig(__DIR__ . ' /../resources/views', [
       'cache' => false,
     ]);
 
