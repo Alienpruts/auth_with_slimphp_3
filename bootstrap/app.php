@@ -8,6 +8,7 @@
 
 session_start();
 
+use AuthWithSlimPHP3\Controllers\Auth\AuthController;
 use AuthWithSlimPHP3\Controllers\HomeController;
 use Slim\App;
 use Slim\Views\Twig;
@@ -45,7 +46,7 @@ $container['db'] = function ($container) use ($capsule) {
 };
 
 $container['view'] = function ($container) {
-    $view = new Twig(__DIR__ . ' /../resources/views', [
+    $view = new Twig(__DIR__ . '/../resources/views', [
       'cache' => false,
     ]);
 
@@ -59,6 +60,10 @@ $container['view'] = function ($container) {
 
 $container['HomeController'] = function ($container) {
     return new HomeController($container);
+};
+
+$container['AuthController'] = function ($container) {
+    return new AuthController($container);
 };
 
 require_once __DIR__ . ' /../app/routes.php';
