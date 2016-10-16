@@ -15,6 +15,7 @@ use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 
 require_once __DIR__ . '/../vendor/autoload.php';
+date_default_timezone_set('Europe/Brussels');
 
 $app = new App([
     'settings' => [
