@@ -10,6 +10,7 @@ session_start();
 
 use AuthWithSlimPHP3\Controllers\Auth\AuthController;
 use AuthWithSlimPHP3\Controllers\HomeController;
+use AuthWithSlimPHP3\Middleware\OldInputMiddleware;
 use AuthWithSlimPHP3\Middleware\ValidationErrorsMiddleware;
 use AuthWithSlimPHP3\Validation\Validator;
 use Slim\App;
@@ -76,5 +77,7 @@ $container['AuthController'] = function ($container) {
 };
 
 $app->add(new ValidationErrorsMiddleware($container));
+
+$app->add(new OldInputMiddleware($container));
 
 require_once __DIR__ . ' /../app/routes.php';
