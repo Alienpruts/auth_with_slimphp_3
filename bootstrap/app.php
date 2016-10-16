@@ -10,6 +10,7 @@ session_start();
 
 use AuthWithSlimPHP3\Controllers\Auth\AuthController;
 use AuthWithSlimPHP3\Controllers\HomeController;
+use AuthWithSlimPHP3\Middleware\ValidationErrorsMiddleware;
 use AuthWithSlimPHP3\Validation\Validator;
 use Slim\App;
 use Slim\Views\Twig;
@@ -21,6 +22,8 @@ date_default_timezone_set('Europe/Brussels');
 $app = new App([
     'settings' => [
       'displayErrorDetails' => true,
+        // This is needed to be able to send a var_dump in a Middleware !
+      'addContentLengthHeader' => false,
       'db' => [
         'driver' => 'mysql',
         'host' => 'localhost',
@@ -71,5 +74,7 @@ $container['HomeController'] = function ($container) {
 $container['AuthController'] = function ($container) {
     return new AuthController($container);
 };
+
+$app->add(new ValidationErrorsMiddleware($container));
 
 require_once __DIR__ . ' /../app/routes.php';
