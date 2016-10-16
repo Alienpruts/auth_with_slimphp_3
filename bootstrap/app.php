@@ -10,6 +10,7 @@ session_start();
 
 use AuthWithSlimPHP3\Controllers\Auth\AuthController;
 use AuthWithSlimPHP3\Controllers\HomeController;
+use AuthWithSlimPHP3\Validation\Validator;
 use Slim\App;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
@@ -57,6 +58,10 @@ $container['view'] = function ($container) {
     ));
 
     return $view;
+};
+
+$container['validator'] = function ($container) {
+    return new Validator;
 };
 
 $container['HomeController'] = function ($container) {

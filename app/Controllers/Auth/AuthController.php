@@ -13,6 +13,8 @@ use AuthWithSlimPHP3\Models\User;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+use Respect\Validation\Validator as v;
+
 class AuthController extends Controller
 {
     public function getSignUp(Request $req, Response $res)
@@ -22,6 +24,16 @@ class AuthController extends Controller
 
     public function postSignUp(Request $req, Response $res)
     {
+        $validation = $this->validator->validate($req, [
+          'email' => v::noWhitespace()->notEmpty(),
+          'name' => v::notEmpty()->alpha(),
+          'password' => v::noWhitespace()->notEmpty(),
+        ]);
+
+        if ($validation->failed()) {
+            return $res->withRedirect($this->router->pathFor('auth.signup'));
+        }
+
         $user = User::create([
           'email' => $req->getParam('email'),
           'name' => $req->getParam('name'),
