@@ -17,6 +17,8 @@ use Slim\App;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 
+use Respect\Validation\Validator as v;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 date_default_timezone_set('Europe/Brussels');
 
@@ -79,5 +81,7 @@ $container['AuthController'] = function ($container) {
 $app->add(new ValidationErrorsMiddleware($container));
 
 $app->add(new OldInputMiddleware($container));
+
+v::with('AuthWithSlimPHP3\\Validation\\Rules\\');
 
 require_once __DIR__ . ' /../app/routes.php';
