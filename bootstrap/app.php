@@ -10,6 +10,7 @@ session_start();
 
 use AuthWithSlimPHP3\Controllers\Auth\AuthController;
 use AuthWithSlimPHP3\Controllers\HomeController;
+use AuthWithSlimPHP3\Middleware\CsrfViewMiddleware;
 use AuthWithSlimPHP3\Middleware\OldInputMiddleware;
 use AuthWithSlimPHP3\Middleware\ValidationErrorsMiddleware;
 use AuthWithSlimPHP3\Validation\Validator;
@@ -80,12 +81,14 @@ $container['AuthController'] = function ($container) {
 };
 
 $container['csrf'] = function ($container) {
-   return new Guard();
+    return new Guard();
 };
 
 $app->add(new ValidationErrorsMiddleware($container));
 
 $app->add(new OldInputMiddleware($container));
+
+$app->add(new CsrfViewMiddleware($container));
 
 $app->add($container['csrf']);
 
