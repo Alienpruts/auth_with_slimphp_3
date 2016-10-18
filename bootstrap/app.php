@@ -18,6 +18,7 @@ use Slim\App;
 use Slim\Csrf\Guard;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
+use AuthWithSlimPHP3\Auth\Auth as Auth;
 
 use Respect\Validation\Validator as v;
 
@@ -82,6 +83,10 @@ $container['AuthController'] = function ($container) {
 
 $container['csrf'] = function ($container) {
     return new Guard();
+};
+
+$container['auth'] = function ($container) {
+    return new Auth();
 };
 
 $app->add(new ValidationErrorsMiddleware($container));

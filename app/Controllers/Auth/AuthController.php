@@ -20,7 +20,16 @@ class AuthController extends Controller
 
     public function postSignin($req, $res)
     {
+        $auth = $this->auth->attempt(
+          $req->getParam('email'),
+          $req->getParam('password')
+        );
 
+        if (!$auth) {
+            return $res->withRedirect($this->router->pathFor('auth.signin'));
+        }
+
+        return $res->withRedirect($this->router->pathFor('home'));
     }
 
     public function getSignin($req, $res)
