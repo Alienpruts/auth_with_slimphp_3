@@ -14,6 +14,7 @@ use AuthWithSlimPHP3\Middleware\OldInputMiddleware;
 use AuthWithSlimPHP3\Middleware\ValidationErrorsMiddleware;
 use AuthWithSlimPHP3\Validation\Validator;
 use Slim\App;
+use Slim\Csrf\Guard;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 
@@ -78,9 +79,15 @@ $container['AuthController'] = function ($container) {
     return new AuthController($container);
 };
 
+$container['csrf'] = function ($container) {
+   return new Guard();
+};
+
 $app->add(new ValidationErrorsMiddleware($container));
 
 $app->add(new OldInputMiddleware($container));
+
+$app->add($container['csrf']);
 
 v::with('AuthWithSlimPHP3\\Validation\\Rules\\');
 
