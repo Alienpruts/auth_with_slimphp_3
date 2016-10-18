@@ -17,6 +17,18 @@ use Respect\Validation\Validator as v;
 
 class AuthController extends Controller
 {
+
+    public function postSignin($req, $res)
+    {
+
+    }
+
+    public function getSignin($req, $res)
+    {
+        return $this->view->render($res, 'auth/signin.twig');
+
+    }
+
     public function getSignUp(Request $req, Response $res)
     {
         return $this->view->render($res, 'auth/signup.twig');
