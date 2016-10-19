@@ -42,4 +42,9 @@ class Auth
         return User::find($_SESSION['user']);
 
     }
+
+    public function logout()
+    {
+        unset($_SESSION['user']);
+    }
 }
