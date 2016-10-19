@@ -28,4 +28,18 @@ class Auth
 
         return false;
     }
+
+    public function check()
+    {
+        return isset($_SESSION['user']);
+    }
+
+    public function user()
+    {
+        if (!isset($_SESSION['user'])) {
+            return false;
+        }
+        return User::find($_SESSION['user']);
+
+    }
 }

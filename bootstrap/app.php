@@ -56,6 +56,10 @@ $container['db'] = function ($container) use ($capsule) {
     return $capsule;
 };
 
+$container['auth'] = function ($container) {
+    return new Auth();
+};
+
 $container['view'] = function ($container) {
     $view = new Twig(__DIR__ . '/../resources/views', [
       'cache' => false,
@@ -65,6 +69,11 @@ $container['view'] = function ($container) {
       $container->router,
       $container->request->getUri()
     ));
+
+    $view->getEnvironment()->addGlobal('auth', [
+      'check' => $container->auth->check(),
+      'user' => $container->auth->user(),
+    ]);
 
     return $view;
 };
@@ -85,9 +94,6 @@ $container['csrf'] = function ($container) {
     return new Guard();
 };
 
-$container['auth'] = function ($container) {
-    return new Auth();
-};
 
 $app->add(new ValidationErrorsMiddleware($container));
 
