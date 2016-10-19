@@ -8,6 +8,7 @@
 
 namespace AuthWithSlimPHP3\Controllers\Auth;
 
+use AuthWithSlimPHP3\Auth\Auth;
 use AuthWithSlimPHP3\Controllers\Controller;
 use AuthWithSlimPHP3\Models\User;
 use Slim\Http\Request;
@@ -15,6 +16,10 @@ use Slim\Http\Response;
 
 use Respect\Validation\Validator as v;
 
+/**
+ * @property Auth auth
+ * @property User email
+ */
 class AuthController extends Controller
 {
 
@@ -61,6 +66,11 @@ class AuthController extends Controller
           'password' => password_hash($req->getParam('password'),
             PASSWORD_DEFAULT, ['cost' => 10])
         ]);
+
+        $this->auth->attempt(
+          $user->email,
+          $req->getParam('password')
+          );
 
         return $res->withRedirect($this->router->pathFor('home'));
     }
