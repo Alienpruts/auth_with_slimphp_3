@@ -16,6 +16,7 @@ class HomeController extends Controller
 
     public function index(Request $req, Response $res)
     {
+        $this->flash->addMessage('error', 'Test flash message');
 
         // This is not good practice, accessing fields via magic method.
         // But for now, it will do.

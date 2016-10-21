@@ -16,6 +16,7 @@ use AuthWithSlimPHP3\Middleware\ValidationErrorsMiddleware;
 use AuthWithSlimPHP3\Validation\Validator;
 use Slim\App;
 use Slim\Csrf\Guard;
+use Slim\Flash\Messages;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use AuthWithSlimPHP3\Auth\Auth as Auth;
@@ -60,6 +61,10 @@ $container['auth'] = function ($container) {
     return new Auth();
 };
 
+$container['flash'] = function ($container) {
+    return new Messages();
+};
+
 $container['view'] = function ($container) {
     $view = new Twig(__DIR__ . '/../resources/views', [
       'cache' => false,
@@ -74,6 +79,8 @@ $container['view'] = function ($container) {
       'check' => $container->auth->check(),
       'user' => $container->auth->user(),
     ]);
+
+    $view->getEnvironment()->addGlobal('flash', $container->flash);
 
     return $view;
 };
@@ -92,9 +99,6 @@ $container['AuthController'] = function ($container) {
 
 $container['csrf'] = function ($container) {
     return new Guard();
-};
-$container['flash'] = function ($container) {
-  return new \Slim\Flash\Messages();
 };
 
 
