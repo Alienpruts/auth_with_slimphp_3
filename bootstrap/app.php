@@ -93,6 +93,9 @@ $container['AuthController'] = function ($container) {
 $container['csrf'] = function ($container) {
     return new Guard();
 };
+$container['flash'] = function ($container) {
+  return new \Slim\Flash\Messages();
+};
 
 
 $app->add(new ValidationErrorsMiddleware($container));
