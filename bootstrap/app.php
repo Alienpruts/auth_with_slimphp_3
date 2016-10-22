@@ -9,6 +9,7 @@
 session_start();
 
 use AuthWithSlimPHP3\Controllers\Auth\AuthController;
+use AuthWithSlimPHP3\Controllers\Auth\PasswordController;
 use AuthWithSlimPHP3\Controllers\HomeController;
 use AuthWithSlimPHP3\Middleware\CsrfViewMiddleware;
 use AuthWithSlimPHP3\Middleware\OldInputMiddleware;
@@ -99,6 +100,10 @@ $container['AuthController'] = function ($container) {
 
 $container['csrf'] = function ($container) {
     return new Guard();
+};
+
+$container['PasswordController'] = function ($container) {
+    return new PasswordController($container);
 };
 
 
