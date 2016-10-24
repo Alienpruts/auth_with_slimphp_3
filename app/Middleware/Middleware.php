@@ -8,10 +8,16 @@
 
 namespace AuthWithSlimPHP3\Middleware;
 
+use Interop\Container\ContainerInterface;
+
 class Middleware
 {
     protected $container;
 
+    /**
+     * Middleware constructor.
+     * @param ContainerInterface $container
+     */
     public function __construct($container)
     {
         $this->container = $container;
