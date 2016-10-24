@@ -34,6 +34,9 @@ class Auth
         return isset($_SESSION['user']);
     }
 
+    /**
+     * @return User
+     */
     public function user()
     {
         if (!isset($_SESSION['user'])) {

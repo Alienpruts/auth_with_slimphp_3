@@ -18,7 +18,6 @@ use Respect\Validation\Validator as v;
 
 /**
  * @property Auth auth
- * @property User email
  */
 class AuthController extends Controller
 {

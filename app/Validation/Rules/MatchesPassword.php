@@ -9,21 +9,26 @@
 namespace AuthWithSlimPHP3\Validation\Rules;
 
 
+use AuthWithSlimPHP3\Models\User;
 use Respect\Validation\Rules\AbstractRule;
 
 class MatchesPassword extends AbstractRule
 {
 
-    private $password;
+    private $user;
 
-    public function __construct($password)
+    /**
+     * MatchesPassword constructor.
+     * @param User $user
+     */
+    public function __construct($user)
     {
-        $this->password = $password;
+        $this->user = $user;
 
     }
 
     public function validate($input)
     {
-        return password_verify($input, $this->password);
+        return password_verify($input, $this->user->password);
     }
 }
