@@ -9,13 +9,18 @@
 namespace AuthWithSlimPHP3\Controllers\Auth;
 
 
+use AuthWithSlimPHP3\Auth\Auth;
 use AuthWithSlimPHP3\Controllers\Controller;
+use AuthWithSlimPHP3\Validation\Validator;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Views\Twig;
+use Respect\Validation\Validator as v;
 
 /**
  * @property Twig view
+ * @property Validator validator
+ * @property Auth auth
  */
 class PasswordController extends Controller
 {
@@ -26,6 +31,17 @@ class PasswordController extends Controller
 
     public function postChangePassword(Request $req, Response $res)
     {
+        $validation = $this->validator->validate($req, [
+          'password_old' => v::noWhitespace()
+            ->notEmpty()
+            ->matchesPassword($this->auth->user()),
+          'password' => v::noWhitespace()->notEmpty(),
+        ]);
 
+        if ($validation->failed()) {
+            return $res->withRedirect($this->router->pathFor('auth.password.change'));
+        }
+
+        die('change password');
     }
 }
